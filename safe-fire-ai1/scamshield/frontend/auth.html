@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ScamShield AI — Sign In / Sign Up</title>
+  <link rel="stylesheet" href="static/style.css"/>
+  <link rel="stylesheet" href="static/auth.css"/>
+</head>
+<body class="auth-body">
+<script src="static/bg.js"></script>
+
+<div class="auth-split">
+  <!-- Theme toggle floating -->
+  <button onclick="(function(){const t=document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark';document.documentElement.setAttribute('data-theme',t);localStorage.setItem('ss_theme',t);this.textContent=t==='dark'?'☀️':'🌙'}).call(this)" style="position:fixed;top:16px;right:16px;z-index:100;background:rgba(20,28,46,.9);border:1px solid #1e2d4a;border-radius:8px;padding:8px 12px;cursor:pointer;font-size:1rem;color:#e2e8f0;backdrop-filter:blur(8px)" id="auth-theme-btn">☀️</button>
+
+  <!-- LEFT PANEL — Branding -->
+  <div class="auth-left">
+    <div class="auth-left-inner">
+      <div class="auth-brand">
+        <span class="auth-brand-icon">🛡️</span>
+        <div>
+          <div class="auth-brand-name">ScamShield <span>AI</span></div>
+          <div class="auth-brand-tag">Pehla Kadam, Surakshit Kadam</div>
+        </div>
+      </div>
+      <h1 class="auth-headline">Protect yourself from<br/><span class="gradient-text">job scams & fraud</span></h1>
+      <p class="auth-desc">India's most advanced AI-powered scam detection platform. Trusted by 1 lakh+ students and job seekers.</p>
+      <div class="auth-features">
+        <div class="auth-feat"><span>🧠</span><span>NLP + Behavioral AI detection</span></div>
+        <div class="auth-feat"><span>📸</span><span>WhatsApp screenshot OCR analysis</span></div>
+        <div class="auth-feat"><span>🕸️</span><span>Real-time Trust Graph network</span></div>
+        <div class="auth-feat"><span>🔴</span><span>Live community scam reports</span></div>
+        <div class="auth-feat"><span>📊</span><span>Personal safety score dashboard</span></div>
+      </div>
+      <div class="auth-stats">
+        <div class="auth-stat"><div class="auth-stat-n">1L+</div><div class="auth-stat-l">Users Protected</div></div>
+        <div class="auth-stat"><div class="auth-stat-n">94%</div><div class="auth-stat-l">Detection Accuracy</div></div>
+        <div class="auth-stat"><div class="auth-stat-n">Free</div><div class="auth-stat-l">Always Free</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT PANEL — Auth form -->
+  <div class="auth-right">
+    <div class="auth-right-inner">
+
+      <!-- Tab switcher: Sign In / Sign Up -->
+      <div class="auth-tabs">
+        <button class="auth-tab active" id="tab-signin" onclick="showTab('signin')">Sign In</button>
+        <button class="auth-tab"        id="tab-signup" onclick="showTab('signup')">Sign Up</button>
+      </div>
+
+      <!-- ── SIGN IN ── -->
+      <div id="panel-signin" class="auth-panel active">
+        <h2 class="panel-title">Welcome back 👋</h2>
+        <p class="panel-sub">Sign in to access your dashboard and scan history.</p>
+
+        <button class="google-btn" onclick="authWithGoogle()">
+          <svg width="18" height="18" viewBox="0 0 48 48">
+            <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
+            <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
+            <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
+            <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.18 1.48-4.97 2.31-8.16 2.31-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
+          </svg>
+          Continue with Google
+        </button>
+
+        <div class="or-divider"><span>or sign in with mobile</span></div>
+
+        <div id="si-step-phone">
+          <label class="field-label">Mobile Number</label>
+          <div class="phone-field">
+            <span class="phone-flag">🇮🇳 +91</span>
+            <input id="si-phone" type="tel" maxlength="10" placeholder="10-digit number"
+                   oninput="this.value=this.value.replace(/\D/g,'')"
+                   onkeydown="if(event.key==='Enter')siSendOTP()"/>
+          </div>
+          <div id="si-recaptcha" style="display:none"></div>
+          <button class="primary-btn" onclick="siSendOTP()" id="si-send-btn">
+            <span id="si-send-text">Send OTP</span>
+            <span id="si-send-load" class="hidden"><span class="btn-spinner"></span>Sending...</span>
+          </button>
+        </div>
+
+        <div id="si-step-otp" class="hidden">
+          <div class="otp-info" id="si-otp-info"></div>
+          <label class="field-label">Enter 6-digit OTP</label>
+          <div class="otp-row" id="si-otp-row">
+            <input class="otp-cell" type="tel" maxlength="1" oninput="cellInput(this,0,'si')" onkeydown="cellKey(event,0,'si')"/>
+            <input class="otp-cell" type="tel" maxlength="1" oninput="cellInput(this,1,'si')" onkeydown="cellKey(event,1,'si')"/>
+            <input class="otp-cell" type="tel" maxlength="1" oninput="cellInput(this,2,'si')" onkeydown="cellKey(event,2,'si')"/>
+            <input class="otp-cell" type="tel" maxlength="1" oninput="cellInput(this,3,'si')" onkeydown="cellKey(event,3,'si')"/>
+            <input class="otp-cell" type="tel" maxlength="1" oninput="cellInput(this,4,'si')" onkeydown="cellKey(event,4,'si')"/>
+            <input class="otp-cell" type="tel" maxlength="1" oninput="cellInput(this,5,'si')" onkeydown="cellKey(event,5,'si')"/>
+          </div>
+          <button class="primary-btn" onclick="siVerifyOTP()" id="si-verify-btn">
+            <span id="si-verify-text">Verify & Sign In</span>
+            <span id="si-verify-load" class="hidden"><span class="btn-spinner"></span>Verifying...</span>
+          </button>
+          <div class="resend-row">
+            <span id="si-timer" class="timer-text"></span>
+            <button id="si-resend" class="resend-link hidden" onclick="siResend()">Resend OTP</button>
+          </div>
+          <button class="back-btn" onclick="siBack()">← Change number</button>
+        </div>
+
+        <div id="si-error"   class="msg-box error   hidden"></div>
+        <div id="si-success" class="msg-box success hidden"></div>
+      </div>
+
+      <!-- ── SIGN UP ── -->
+      <div id="panel-signup" class="auth-panel">
+        <h2 class="panel-title">Create account 🚀</h2>
+        <p class="panel-sub">Join 1 lakh+ Indians staying safe from job scams.</p>
+
+        <button class="google-btn" onclick="authWithGoogle()">
+          <svg width="18" height="18" viewBox="0 0 48 48">
+            <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
+            <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
+            <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
+            <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.18 1.48-4.97 2.31-8.16 2.31-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
+          </svg>
+          Sign up with Google
+        </button>
+
+        <div class="or-divider"><span>or sign up with mobile</span></div>
+
+        <div id="su-step-phone">
+          <div class="field-group">
+            <label class="field-label">Full Name</label>
+            <input id="su-name" type="text" class="text-field" placeholder="Your full name"/>
+          </div>
+          <div class="field-group">
+            <label class="field-label">Mobile Number</label>
+            <div class="phone-field">
+              <span class="phone-flag">🇮🇳 +91</span>
+              <input id="su-phone" type="tel" maxlength="10" placeholder="10-digit number"
+                     oninput="this.value=this.value.replace(/\D/g,'')"
+                     onkeydown="if(event.key==='Enter')suSendOTP()"/>
+            </div>
+          </div>
+          <div class="field-group">
+            <label class="field-label">Email <span class="optional">(optional)</span></label>
+            <input id="su-email" type="email" class="text-field" placeholder="you@example.com"/>
+          </div>
+          <label class="checkbox-row">
+            <input type="checkbox" id="su-agree" required/>
+            <span>I agree to the <a href="/terms" target="_blank">Terms</a> and <a href="/privacy" target="_blank">Privacy Policy</a></span>
+          </label>
+          <div id="su-recaptcha" style="display:none"></div>
+          <button class="primary-btn" onclick="suSendOTP()" id="su-send-btn">
+            <span id="su-send-text">Send OTP to Verify</span>
+            <span id="su-send-load" class="hidden"><span class="btn-spinner"></span>Sending...</span>
+          </button>
+        </div>
+
+        <div id="su-step-otp" class="hidden">
+          <div class="otp-info" id="su-otp-info"></div>
+          <label class="field-label">Enter 6-digit OTP</label>
+          <div class="otp-row" id="su-otp-row">
+            <input class="otp-cell" type="tel" maxlength="1" oninput="cellInput(this,0,'su')" onkeydown="cellKey(event,0,'su')"/>
+            <input class="otp-cell" type="tel" maxlength="1" oninput="cellInput(this,1,'su')" onkeydown="cellKey(event,1,'su')"/>
+            <input class="otp-cell" type="tel" maxlength="1" oninput="cellInput(this,2,'su')" onkeydown="cellKey(event,2,'su')"/>
+            <input class="otp-cell" type="tel" maxlength="1" oninput="cellInput(this,3,'su')" onkeydown="cellKey(event,3,'su')"/>
+            <input class="otp-cell" type="tel" maxlength="1" oninput="cellInput(this,4,'su')" onkeydown="cellKey(event,4,'su')"/>
+            <input class="otp-cell" type="tel" maxlength="1" oninput="cellInput(this,5,'su')" onkeydown="cellKey(event,5,'su')"/>
+          </div>
+          <button class="primary-btn" onclick="suVerifyOTP()" id="su-verify-btn">
+            <span id="su-verify-text">Create My Account</span>
+            <span id="su-verify-load" class="hidden"><span class="btn-spinner"></span>Creating...</span>
+          </button>
+          <div class="resend-row">
+            <span id="su-timer" class="timer-text"></span>
+            <button id="su-resend" class="resend-link hidden" onclick="suResend()">Resend OTP</button>
+          </div>
+          <button class="back-btn" onclick="suBack()">← Change details</button>
+        </div>
+
+        <div id="su-error"   class="msg-box error   hidden"></div>
+        <div id="su-success" class="msg-box success hidden"></div>
+      </div>
+
+      <p class="auth-legal">
+        By continuing you agree to our <a href="/terms" target="_blank">Terms of Service</a>
+        and <a href="/privacy" target="_blank">Privacy Policy</a>.<br/>
+        ScamShield AI is free for all students and job seekers. 🇮🇳
+      </p>
+    </div>
+  </div>
+</div>
+
+<script type="module" src="static/auth.js"></script>
+<script>
+// Theme support on auth page
+(function() {
+  const t = localStorage.getItem('ss_theme') || 'dark';
+  document.documentElement.setAttribute('data-theme', t);
+})();
+</script>
+</body>
+</html>

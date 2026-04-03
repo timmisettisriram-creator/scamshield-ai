@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <title>ScamShield AI</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { width: 320px; background: #0a0e1a; color: #e2e8f0; font-family: 'Segoe UI', sans-serif; }
+    .header { background: #141c2e; border-bottom: 1px solid #1e2d4a; padding: 14px 16px; display: flex; align-items: center; gap: 10px; }
+    .logo { font-size: 1.4rem; }
+    .title { font-weight: 800; font-size: 1rem; }
+    .title span { color: #3b82f6; }
+    .body { padding: 16px; }
+    textarea { width: 100%; background: #0f1628; border: 1px solid #1e2d4a; border-radius: 8px; color: #e2e8f0; padding: 10px; font-size: 0.85rem; font-family: inherit; resize: none; height: 90px; }
+    textarea:focus { outline: none; border-color: #3b82f6; }
+    .btn { width: 100%; background: linear-gradient(135deg, #3b82f6, #6366f1); border: none; color: #fff; padding: 11px; border-radius: 8px; font-weight: 700; cursor: pointer; font-size: 0.9rem; margin-top: 10px; }
+    .btn:hover { opacity: .9; }
+    .result { margin-top: 12px; border-radius: 8px; padding: 12px; font-size: 0.85rem; display: none; }
+    .result.scam       { background: rgba(239,68,68,.15); border: 1px solid rgba(239,68,68,.3); }
+    .result.suspicious { background: rgba(245,158,11,.15); border: 1px solid rgba(245,158,11,.3); }
+    .result.safe       { background: rgba(16,185,129,.15); border: 1px solid rgba(16,185,129,.3); }
+    .verdict { font-weight: 800; font-size: 1rem; margin-bottom: 4px; }
+    .verdict.scam { color: #ef4444; }
+    .verdict.suspicious { color: #f59e0b; }
+    .verdict.safe { color: #10b981; }
+    .score { font-size: 0.78rem; color: #94a3b8; margin-bottom: 8px; }
+    .advice { font-size: 0.8rem; color: #94a3b8; line-height: 1.4; }
+    .page-info { background: #141c2e; border: 1px solid #1e2d4a; border-radius: 8px; padding: 10px 12px; margin-bottom: 12px; font-size: 0.78rem; color: #64748b; }
+    .page-info strong { color: #94a3b8; }
+    .footer { padding: 10px 16px; border-top: 1px solid #1e2d4a; display: flex; justify-content: space-between; align-items: center; }
+    .footer a { font-size: 0.75rem; color: #3b82f6; text-decoration: none; }
+    .status-dot { width: 8px; height: 8px; border-radius: 50%; background: #10b981; display: inline-block; margin-right: 4px; }
+    .loading { text-align: center; color: #64748b; font-size: 0.85rem; padding: 8px 0; display: none; }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="logo">🛡️</div>
+    <div>
+      <div class="title">ScamShield <span>AI</span></div>
+      <div style="font-size:0.68rem;color:#64748b">Real-time scam detection</div>
+    </div>
+  </div>
+
+  <div class="body">
+    <div class="page-info" id="page-info">
+      <span class="status-dot"></span>
+      <strong>Active on:</strong> <span id="current-site">this page</span>
+    </div>
+
+    <textarea id="input-text" placeholder="Paste a job offer or suspicious message here..."></textarea>
+    <div class="loading" id="loading">⏳ Analyzing...</div>
+    <button class="btn" onclick="analyze()">🔍 Analyze</button>
+
+    <div class="result" id="result">
+      <div class="verdict" id="verdict"></div>
+      <div class="score" id="score"></div>
+      <div class="advice" id="advice"></div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <span><span class="status-dot"></span>Connected</span>
+    <a href="http://localhost:8000" target="_blank">Open ScamShield →</a>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

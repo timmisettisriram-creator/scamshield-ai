@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Privacy Policy — ScamShield AI</title>
+  <link rel="stylesheet" href="static/style.css"/>
+  <style>
+    .legal-body { max-width: 760px; margin: 0 auto; padding: 48px 24px 80px; }
+    .legal-body h1 { font-size: 2rem; font-weight: 900; margin-bottom: 8px; }
+    .legal-body .updated { font-size: .82rem; color: var(--muted); margin-bottom: 36px; }
+    .legal-body h2 { font-size: 1.1rem; font-weight: 700; margin: 28px 0 10px; color: var(--text); }
+    .legal-body p, .legal-body li { font-size: .9rem; color: var(--text2); line-height: 1.7; margin-bottom: 10px; }
+    .legal-body ul { padding-left: 20px; }
+    .legal-body a { color: var(--accent); }
+  </style>
+</head>
+<body>
+<header class="header">
+  <div class="header-inner">
+    <a href="/" class="logo"><span class="logo-icon">🛡️</span><div><span class="logo-text">ScamShield <span class="logo-ai">AI</span></span></div></a>
+    <div class="header-actions">
+      <button class="theme-toggle" onclick="toggleTheme()"><span id="theme-icon">☀️</span></button>
+    </div>
+  </div>
+</header>
+<div class="legal-body">
+  <h1>Privacy Policy</h1>
+  <p class="updated">Last updated: April 2026</p>
+
+  <h2>1. Information We Collect</h2>
+  <p>When you use ScamShield AI, we may collect:</p>
+  <ul>
+    <li>Mobile number (for OTP authentication)</li>
+    <li>Email address (optional, for Google OAuth or newsletter)</li>
+    <li>Text content you submit for analysis (anonymized)</li>
+    <li>IP address (for rate limiting and fraud prevention)</li>
+    <li>Usage data (scan counts, verdicts — no personal content)</li>
+  </ul>
+
+  <h2>2. How We Use Your Information</h2>
+  <ul>
+    <li>To provide scam detection services</li>
+    <li>To improve our detection models (anonymized data only)</li>
+    <li>To send OTP verification codes</li>
+    <li>To send weekly safety digests (if opted in)</li>
+    <li>To prevent abuse and enforce rate limits</li>
+  </ul>
+
+  <h2>3. Data Storage & Security</h2>
+  <p>All data is stored in encrypted databases. We use industry-standard security practices including HTTPS, JWT authentication, and hashed OTPs. We do not store raw OTPs — only hashed versions.</p>
+
+  <h2>4. Data Sharing</h2>
+  <p>We do not sell your personal data. We may share anonymized, aggregated scam pattern data with law enforcement agencies (CERT-In, cybercrime.gov.in) to help combat fraud.</p>
+
+  <h2>5. Your Rights</h2>
+  <ul>
+    <li>Access your data via the Dashboard</li>
+    <li>Delete your account and all associated data at any time</li>
+    <li>Opt out of newsletter at any time</li>
+    <li>Request data export by contacting hello@scamshield.ai</li>
+  </ul>
+
+  <h2>6. Cookies</h2>
+  <p>We use localStorage (not cookies) to store your authentication token and preferences. No third-party tracking cookies are used.</p>
+
+  <h2>7. Children's Privacy</h2>
+  <p>ScamShield AI is intended for users 13 years and older. We do not knowingly collect data from children under 13.</p>
+
+  <h2>8. Contact</h2>
+  <p>For privacy concerns: <a href="mailto:privacy@scamshield.ai">privacy@scamshield.ai</a></p>
+</div>
+<script src="static/app.js"></script>
+</body>
+</html>

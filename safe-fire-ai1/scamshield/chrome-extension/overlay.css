@@ -1,0 +1,6 @@
+@keyframes ssSlideIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.ss-badge { transition: opacity .2s; }
+.ss-badge:hover { opacity: .85; }
