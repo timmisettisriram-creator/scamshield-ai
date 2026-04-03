@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contact — ScamShield AI</title>
+  <link rel="stylesheet" href="static/style.css"/>
+  <style>
+    .page-hero { padding: 60px 24px 40px; text-align: center; background: var(--bg); position: relative; overflow: hidden; }
+    .page-hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 0%, rgba(59,130,246,0.1) 0%, transparent 65%); pointer-events: none; }
+    .page-hero h1 { font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 900; margin-bottom: 12px; }
+    .page-hero p { color: var(--text2); max-width: 520px; margin: 0 auto; }
+    .contact-layout { max-width: 1000px; margin: 0 auto; padding: 50px 24px; display: grid; grid-template-columns: 1fr 340px; gap: 28px; align-items: start; }
+    .contact-form-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 28px; }
+    .contact-form-card h2 { font-size: 1.1rem; font-weight: 700; margin-bottom: 22px; }
+    .form-group { margin-bottom: 16px; }
+    .form-group label { display: block; font-size: 0.82rem; color: var(--text2); margin-bottom: 6px; font-weight: 500; }
+    .form-group input, .form-group select, .form-group textarea { width: 100%; background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; color: var(--text); padding: 11px 14px; font-size: 0.9rem; font-family: inherit; transition: border-color .2s; }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(59,130,246,0.1); }
+    .form-group select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%2394a3b8' d='M6 8L0 0h12z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; cursor: pointer; }
+    .form-group textarea { resize: vertical; min-height: 120px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .submit-btn { width: 100%; background: linear-gradient(135deg, var(--accent), var(--accent2)); border: none; color: #fff; padding: 13px; border-radius: 8px; font-size: 0.95rem; font-weight: 700; cursor: pointer; transition: opacity .2s, transform .1s; display: flex; align-items: center; justify-content: center; gap: 8px; }
+    .submit-btn:hover { opacity: .88; transform: translateY(-1px); }
+    .submit-btn:disabled { opacity: .5; cursor: not-allowed; transform: none; }
+    .success-msg { background: rgba(16,185,129,.1); border: 1px solid rgba(16,185,129,.3); color: #6ee7b7; border-radius: 8px; padding: 14px 16px; font-size: 0.88rem; margin-top: 14px; display: none; }
+    .sidebar-col { display: flex; flex-direction: column; gap: 16px; }
+    .info-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; }
+    .info-card h3 { font-size: 0.88rem; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; margin-bottom: 14px; }
+    .info-item { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 14px; }
+    .info-item:last-child { margin-bottom: 0; }
+    .info-icon { font-size: 1.3rem; flex-shrink: 0; margin-top: 1px; }
+    .info-label { font-size: 0.78rem; color: var(--muted); margin-bottom: 2px; }
+    .info-value { font-size: 0.9rem; color: var(--text); font-weight: 500; }
+    .info-value a { color: var(--accent); }
+    .social-links { display: flex; gap: 10px; }
+    .social-btn { display: flex; align-items: center; gap: 7px; background: var(--card2); border: 1px solid var(--border); color: var(--text2); padding: 8px 14px; border-radius: 8px; font-size: 0.82rem; font-weight: 500; text-decoration: none; transition: all .2s; }
+    .social-btn:hover { border-color: var(--accent); color: var(--accent); text-decoration: none; }
+    .map-placeholder { background: var(--card2); border: 1px solid var(--border); border-radius: 10px; height: 120px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; color: var(--muted); font-size: 0.88rem; }
+    .map-placeholder .map-icon { font-size: 2rem; }
+    .faq-links { display: flex; flex-direction: column; gap: 8px; }
+    .faq-links a { font-size: 0.85rem; color: var(--accent); display: flex; align-items: center; gap: 6px; }
+    .faq-links a:hover { text-decoration: underline; }
+    @media (max-width: 768px) { .contact-layout { grid-template-columns: 1fr; } .form-row { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+<header class="header">
+  <div class="header-inner">
+    <a href="/" class="logo">
+      <span class="logo-icon">🛡️</span>
+      <div>
+        <span class="logo-text">ScamShield <span class="logo-ai">AI</span></span>
+        <p class="logo-tagline">Pehla Kadam, Surakshit Kadam</p>
+      </div>
+    </a>
+    <nav class="nav-links">
+      <a href="/#analyzer">Analyze</a>
+      <a href="/#community">Live Feed</a>
+      <a href="dashboard.html">Dashboard</a>
+      <a href="about.html">About</a>
+      <a href="https://cybercrime.gov.in" target="_blank" class="nav-report">🚨 Report</a>
+    </nav>
+    <div class="header-actions">
+      <button class="theme-toggle" onclick="toggleTheme()" title="Toggle theme" aria-label="Toggle dark/light mode">
+        <span id="theme-icon">☀️</span>
+      </button>
+      <div id="user-area"></div>
+    </div>
+  </div>
+</header>
+
+<section class="page-hero">
+  <div class="hero-badge">We're here to help</div>
+  <h1>Get in <span class="gradient-text">Touch</span></h1>
+  <p>Have a question, found a bug, or want to partner with us? We'd love to hear from you.</p>
+</section>
+
+<div class="contact-layout">
+  <!-- CONTACT FORM -->
+  <div class="contact-form-card">
+    <h2>📬 Send us a Message</h2>
+    <form id="contact-form" onsubmit="submitContact(event)">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="c-name">Full Name</label>
+          <input type="text" id="c-name" placeholder="Your name" required/>
+        </div>
+        <div class="form-group">
+          <label for="c-email">Email Address</label>
+          <input type="email" id="c-email" placeholder="you@example.com" required/>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="c-subject">Subject</label>
+        <select id="c-subject" required>
+          <option value="" disabled selected>Select a topic...</option>
+          <option value="general">General Inquiry</option>
+          <option value="bug">Report a Bug</option>
+          <option value="partnership">Partnership</option>
+          <option value="media">Media / Press</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="c-message">Message</label>
+        <textarea id="c-message" placeholder="Describe your query in detail..." required></textarea>
+      </div>
+      <button type="submit" class="submit-btn" id="submit-btn">
+        <span id="submit-text">📤 Send Message</span>
+        <span id="submit-loader" class="hidden"><span class="spinner"></span> Sending...</span>
+      </button>
+    </form>
+    <div class="success-msg" id="success-msg">✅ Message sent! We'll get back to you within 24 hours.</div>
+  </div>
+
+  <!-- SIDEBAR -->
+  <div class="sidebar-col">
+    <div class="info-card">
+      <h3>Contact Info</h3>
+      <div class="info-item">
+        <div class="info-icon">📧</div>
+        <div><div class="info-label">Email</div><div class="info-value"><a href="mailto:hello@scamshield.ai">hello@scamshield.ai</a></div></div>
+      </div>
+      <div class="info-item">
+        <div class="info-icon">📞</div>
+        <div><div class="info-label">Cyber Helpline</div><div class="info-value"><strong>1930</strong> (24×7 India)</div></div>
+      </div>
+      <div class="info-item">
+        <div class="info-icon">📍</div>
+        <div><div class="info-label">Location</div><div class="info-value">Bengaluru, Karnataka, India</div></div>
+      </div>
+    </div>
+
+    <div class="info-card">
+      <h3>Follow Us</h3>
+      <div class="social-links">
+        <a href="https://twitter.com" target="_blank" class="social-btn">🐦 Twitter</a>
+        <a href="https://linkedin.com" target="_blank" class="social-btn">💼 LinkedIn</a>
+        <a href="https://github.com" target="_blank" class="social-btn">🐙 GitHub</a>
+      </div>
+    </div>
+
+    <div class="info-card">
+      <h3>Location</h3>
+      <div class="map-placeholder">
+        <div class="map-icon">🗺️</div>
+        <div style="font-weight:600;color:var(--text)">India</div>
+        <div>Serving all 28 states & 8 UTs</div>
+      </div>
+    </div>
+
+    <div class="info-card">
+      <h3>Quick Help</h3>
+      <div class="faq-links">
+        <a href="about.html#faq">❓ How does ScamShield work?</a>
+        <a href="about.html#faq">🔒 Is my data safe?</a>
+        <a href="about.html#faq">🌐 Supported languages?</a>
+        <a href="https://cybercrime.gov.in" target="_blank">🚨 Report a cybercrime</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-logo">🛡️ ScamShield AI</div>
+    <p>Built for India's students and fresh graduates. Stay safe, stay informed.</p>
+    <div class="footer-links">
+      <a href="https://cybercrime.gov.in" target="_blank">Report Cybercrime</a>
+      <a href="about.html">About</a>
+      <a href="dashboard.html">Dashboard</a>
+      <a href="/login">Sign In</a>
+    </div>
+    <p class="footer-note">Helpline: 1930 | This tool is for awareness. Always verify independently.</p>
+  </div>
+</footer>
+
+<script src="static/app.js"></script>
+<script>
+async function submitContact(e) {
+  e.preventDefault();
+  const btn = document.getElementById('submit-btn');
+  const txt = document.getElementById('submit-text');
+  const ldr = document.getElementById('submit-loader');
+  btn.disabled = true; txt.classList.add('hidden'); ldr.classList.remove('hidden');
+  const payload = {
+    name: document.getElementById('c-name').value,
+    email: document.getElementById('c-email').value,
+    subject: document.getElementById('c-subject').value,
+    message: document.getElementById('c-message').value
+  };
+  try {
+    await fetch('/contact', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify(payload) });
+  } catch(_) {}
+  btn.disabled = false; txt.classList.remove('hidden'); ldr.classList.add('hidden');
+  document.getElementById('contact-form').reset();
+  document.getElementById('success-msg').style.display = 'block';
+}
+</script>
+</body>
+</html>

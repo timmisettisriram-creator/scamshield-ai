@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dashboard — ScamShield AI</title>
+  <link rel="stylesheet" href="static/style.css"/>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <style>
+    .dash-layout { display: flex; min-height: calc(100vh - 61px); }
+    .sidebar { width: 220px; background: var(--card); border-right: 1px solid var(--border); padding: 24px 0; flex-shrink: 0; position: sticky; top: 61px; height: calc(100vh - 61px); overflow-y: auto; }
+    .sidebar a { display: flex; align-items: center; gap: 10px; padding: 11px 22px; color: var(--text2); font-size: 0.9rem; font-weight: 500; transition: all .2s; text-decoration: none; border-left: 3px solid transparent; }
+    .sidebar a:hover, .sidebar a.active { color: var(--accent); background: rgba(59,130,246,.07); border-left-color: var(--accent); text-decoration: none; }
+    .sidebar-section { font-size: 0.68rem; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .08em; padding: 18px 22px 6px; }
+    .dash-main { flex: 1; padding: 28px; overflow-y: auto; }
+    .dash-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 24px; }
+    .metric-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 22px; }
+    .metric-label { font-size: 0.78rem; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; margin-bottom: 8px; }
+    .metric-value { font-size: 2.2rem; font-weight: 900; color: var(--accent); }
+    .metric-sub { font-size: 0.78rem; color: var(--text2); margin-top: 4px; }
+    .safety-score-big { font-size: 3rem; font-weight: 900; background: linear-gradient(135deg, var(--green), var(--accent)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .section-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 22px; margin-bottom: 20px; }
+    .section-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 16px; color: var(--text); }
+    table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+    th { text-align: left; padding: 10px 12px; color: var(--muted); font-size: 0.75rem; text-transform: uppercase; letter-spacing: .05em; border-bottom: 1px solid var(--border); }
+    td { padding: 11px 12px; border-bottom: 1px solid var(--border); color: var(--text2); vertical-align: middle; }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: var(--card2); }
+    .badge { display: inline-block; padding: 3px 10px; border-radius: 5px; font-size: 0.72rem; font-weight: 700; text-transform: uppercase; }
+    .badge.scam { background: rgba(239,68,68,.15); color: #fca5a5; }
+    .badge.suspicious { background: rgba(245,158,11,.15); color: #fcd34d; }
+    .badge.safe { background: rgba(16,185,129,.15); color: #6ee7b7; }
+    .action-btn { background: var(--card2); border: 1px solid var(--border); color: var(--text2); padding: 4px 10px; border-radius: 6px; cursor: pointer; font-size: 0.75rem; transition: all .2s; }
+    .action-btn:hover { border-color: var(--accent); color: var(--accent); }
+    .quick-analyze textarea { width: 100%; background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; color: var(--text); padding: 12px; font-size: 0.9rem; font-family: inherit; resize: none; }
+    .quick-analyze textarea:focus { outline: none; border-color: var(--accent); }
+    .btn-primary { background: linear-gradient(135deg, var(--accent), var(--accent2)); border: none; color: #fff; padding: 10px 22px; border-radius: 8px; font-weight: 700; cursor: pointer; font-size: 0.9rem; margin-top: 10px; transition: opacity .2s; }
+    .btn-primary:hover { opacity: .88; }
+    .btn-danger { background: transparent; border: 1px solid var(--red); color: var(--red); padding: 10px 22px; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 0.9rem; transition: all .2s; }
+    .btn-danger:hover { background: rgba(239,68,68,.1); }
+    .toggle-row { display: flex; align-items: center; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid var(--border); }
+    .toggle-row:last-child { border-bottom: none; }
+    .toggle-label { font-size: 0.9rem; color: var(--text); }
+    .toggle-sub { font-size: 0.78rem; color: var(--muted); }
+    .toggle { position: relative; width: 42px; height: 24px; flex-shrink: 0; }
+    .toggle input { opacity: 0; width: 0; height: 0; }
+    .toggle-slider { position: absolute; inset: 0; background: var(--border); border-radius: 24px; cursor: pointer; transition: .3s; }
+    .toggle-slider:before { content: ''; position: absolute; width: 18px; height: 18px; left: 3px; top: 3px; background: #fff; border-radius: 50%; transition: .3s; }
+    .toggle input:checked + .toggle-slider { background: var(--accent); }
+    .toggle input:checked + .toggle-slider:before { transform: translateX(18px); }
+    .form-group { margin-bottom: 16px; }
+    .form-group label { display: block; font-size: 0.82rem; color: var(--text2); margin-bottom: 6px; }
+    .form-group input { width: 100%; background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; color: var(--text); padding: 10px 14px; font-size: 0.9rem; font-family: inherit; }
+    .form-group input:focus { outline: none; border-color: var(--accent); }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .danger-zone { border-color: rgba(239,68,68,.3); }
+    .danger-zone h3 { color: var(--red); }
+    .danger-zone p { font-size: 0.85rem; color: var(--text2); margin-bottom: 14px; }
+    .chart-small { height: 120px; }
+    #toast { position: fixed; bottom: 24px; right: 24px; background: var(--card); border: 1px solid var(--border); color: var(--text); padding: 12px 20px; border-radius: 10px; font-size: 0.88rem; box-shadow: var(--shadow); display: none; z-index: 999; }
+    @media (max-width: 768px) { .sidebar { display: none; } .form-row { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+<header class="header">
+  <div class="header-inner">
+    <a href="/" class="logo">
+      <span class="logo-icon">🛡️</span>
+      <div>
+        <span class="logo-text">ScamShield <span class="logo-ai">AI</span></span>
+        <p class="logo-tagline">Pehla Kadam, Surakshit Kadam</p>
+      </div>
+    </a>
+    <nav class="nav-links">
+      <a href="/#analyzer">Analyze</a>
+      <a href="/#community">Live Feed</a>
+      <a href="/#trust-graph">Trust Graph</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <div class="header-actions">
+      <button class="theme-toggle" onclick="toggleTheme()" title="Toggle theme" aria-label="Toggle dark/light mode">
+        <span id="theme-icon">☀️</span>
+      </button>
+      <div id="user-area"></div>
+    </div>
+  </div>
+</header>
+
+<div class="dash-layout">
+  <aside class="sidebar">
+    <div class="sidebar-section">Main</div>
+    <a href="#overview" class="active" onclick="showSection('overview',this)">📊 Overview</a>
+    <a href="#scans" onclick="showSection('scans',this)">🔍 My Scans</a>
+    <a href="#bookmarks" onclick="showSection('bookmarks',this)">🔖 Bookmarks</a>
+    <a href="#reports" onclick="showSection('reports',this)">📋 Reports</a>
+    <div class="sidebar-section">Account</div>
+    <a href="#settings" onclick="showSection('settings',this)">⚙️ Settings</a>
+    <a href="#help" onclick="showSection('help',this)">❓ Help</a>
+    <a href="https://cybercrime.gov.in" target="_blank" style="margin-top:auto">🚨 Report Crime</a>
+  </aside>
+
+  <main class="dash-main">
+    <!-- OVERVIEW -->
+    <div id="section-overview">
+      <h2 style="font-size:1.4rem;font-weight:800;margin-bottom:20px;color:var(--text)">Welcome back, <span id="user-name">—</span> 👋</h2>
+      <div class="dash-grid">
+        <div class="metric-card">
+          <div class="metric-label">Safety Score</div>
+          <div class="safety-score-big" id="safety-score">—</div>
+          <div class="metric-sub">out of 100</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">Total Scans</div>
+          <div class="metric-value" id="total-scans">—</div>
+          <div class="metric-sub">all time</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">Scams Caught</div>
+          <div class="metric-value" style="color:var(--red)" id="scams-caught">—</div>
+          <div class="metric-sub">flagged as scam</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">Safe Verified</div>
+          <div class="metric-value" style="color:var(--green)" id="safe-count">—</div>
+          <div class="metric-sub">cleared offers</div>
+        </div>
+      </div>
+
+      <div class="section-card">
+        <h3>📈 Safety Score Trend</h3>
+        <div class="chart-small"><canvas id="trend-chart"></canvas></div>
+      </div>
+
+      <div class="section-card quick-analyze">
+        <h3>⚡ Quick Analyze</h3>
+        <textarea id="quick-input" rows="3" placeholder="Paste a suspicious message to analyze instantly..."></textarea>
+        <button class="btn-primary" onclick="quickAnalyze()">🔍 Analyze</button>
+        <div id="quick-result" style="margin-top:12px;font-size:0.88rem;color:var(--text2)"></div>
+      </div>
+    </div>
+
+    <!-- MY SCANS -->
+    <div id="section-scans" style="display:none">
+      <h2 style="font-size:1.4rem;font-weight:800;margin-bottom:20px;color:var(--text)">🔍 My Scans</h2>
+      <div class="section-card" style="padding:0;overflow:hidden">
+        <table>
+          <thead><tr><th>Date</th><th>Verdict</th><th>Risk Score</th><th>Input Snippet</th><th>Actions</th></tr></thead>
+          <tbody id="scans-tbody"><tr><td colspan="5" style="text-align:center;color:var(--muted);padding:30px">Loading scans...</td></tr></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- BOOKMARKS -->
+    <div id="section-bookmarks" style="display:none">
+      <h2 style="font-size:1.4rem;font-weight:800;margin-bottom:20px;color:var(--text)">🔖 Bookmarks</h2>
+      <div class="section-card"><p style="color:var(--muted);font-size:0.9rem">Bookmarked scans will appear here. Click the bookmark icon on any scan result to save it.</p></div>
+    </div>
+
+    <!-- REPORTS -->
+    <div id="section-reports" style="display:none">
+      <h2 style="font-size:1.4rem;font-weight:800;margin-bottom:20px;color:var(--text)">📋 My Reports</h2>
+      <div class="section-card"><p style="color:var(--muted);font-size:0.9rem">Reports you've submitted to the community will appear here.</p></div>
+    </div>
+
+    <!-- SETTINGS -->
+    <div id="section-settings" style="display:none">
+      <h2 style="font-size:1.4rem;font-weight:800;margin-bottom:20px;color:var(--text)">⚙️ Settings</h2>
+
+      <div class="section-card">
+        <h3>🔔 Alert Settings</h3>
+        <div class="toggle-row">
+          <div><div class="toggle-label">Email Alerts</div><div class="toggle-sub">Get notified when a scan detects a scam</div></div>
+          <label class="toggle"><input type="checkbox" id="toggle-email" checked><span class="toggle-slider"></span></label>
+        </div>
+        <div class="toggle-row">
+          <div><div class="toggle-label">SMS Alerts</div><div class="toggle-sub">Receive SMS for high-risk detections</div></div>
+          <label class="toggle"><input type="checkbox" id="toggle-sms"><span class="toggle-slider"></span></label>
+        </div>
+        <div class="toggle-row">
+          <div><div class="toggle-label">Weekly Digest</div><div class="toggle-sub">Summary of your scans every Monday</div></div>
+          <label class="toggle"><input type="checkbox" id="toggle-digest" checked><span class="toggle-slider"></span></label>
+        </div>
+        <button class="btn-primary" style="margin-top:16px" onclick="saveAlerts()">Save Preferences</button>
+      </div>
+
+      <div class="section-card">
+        <h3>👤 Account Settings</h3>
+        <div class="form-row">
+          <div class="form-group"><label>Full Name</label><input type="text" id="acc-name" placeholder="Your name"/></div>
+          <div class="form-group"><label>Email</label><input type="email" id="acc-email" placeholder="you@example.com"/></div>
+        </div>
+        <div class="form-group"><label>Phone</label><input type="tel" id="acc-phone" placeholder="+91 XXXXX XXXXX"/></div>
+        <button class="btn-primary" onclick="saveAccount()">Save Changes</button>
+      </div>
+
+      <div class="section-card danger-zone">
+        <h3>⚠️ Danger Zone</h3>
+        <p>Permanently delete your account and all associated data. This action cannot be undone.</p>
+        <button class="btn-danger" onclick="confirmDelete()">Delete My Account</button>
+      </div>
+    </div>
+
+    <!-- HELP -->
+    <div id="section-help" style="display:none">
+      <h2 style="font-size:1.4rem;font-weight:800;margin-bottom:20px;color:var(--text)">❓ Help & Support</h2>
+      <div class="section-card">
+        <h3>Quick Links</h3>
+        <p style="color:var(--text2);font-size:0.9rem;margin-bottom:12px">Need help? Here are some resources:</p>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <a href="contact.html" style="color:var(--accent)">📧 Contact Support</a>
+          <a href="about.html#faq" style="color:var(--accent)">❓ FAQ</a>
+          <a href="https://cybercrime.gov.in" target="_blank" style="color:var(--accent)">🚨 Report Cybercrime (1930)</a>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<div id="toast"></div>
+<script src="static/app.js"></script>
+<script src="static/dashboard.js"></script>
+</body>
+</html>

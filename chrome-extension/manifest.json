@@ -1,0 +1,21 @@
+{
+  "manifest_version": 3,
+  "name": "ScamShield AI",
+  "version": "1.0.0",
+  "description": "Real-time scam detection on LinkedIn, Indeed, and WhatsApp Web",
+  "permissions": ["activeTab", "storage", "contextMenus"],
+  "host_permissions": ["https://*.linkedin.com/*", "https://*.indeed.com/*", "https://web.whatsapp.com/*", "http://localhost:8000/*"],
+  "background": { "service_worker": "background.js" },
+  "content_scripts": [
+    {
+      "matches": ["https://*.linkedin.com/*", "https://*.indeed.com/*", "https://web.whatsapp.com/*"],
+      "js": ["content.js"],
+      "css": ["overlay.css"]
+    }
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": { "48": "icon48.png" }
+  },
+  "icons": { "48": "icon48.png" }
+}

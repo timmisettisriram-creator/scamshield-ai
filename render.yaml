@@ -1,0 +1,29 @@
+services:
+  - type: web
+    name: scamshield-ai
+    env: python
+    region: singapore
+    plan: free
+    rootDir: scamshield
+    buildCommand: pip install -r requirements.txt
+    startCommand: cd backend && python -m uvicorn main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /health
+    envVars:
+      - key: ENVIRONMENT
+        value: production
+      - key: SECRET_KEY
+        generateValue: true
+      - key: FRONTEND_URL
+        sync: false
+      - key: ALLOWED_ORIGINS
+        sync: false
+      - key: FAST2SMS_API_KEY
+        sync: false
+      - key: GOOGLE_CLIENT_ID
+        sync: false
+      - key: GOOGLE_CLIENT_SECRET
+        sync: false
+      - key: FIREBASE_PROJECT_ID
+        value: safe-fire-ai1
+      - key: FIREBASE_SERVICE_ACCOUNT
+        sync: false

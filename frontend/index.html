@@ -1,0 +1,629 @@
+﻿<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ScamShield AI â€” Securing Your First Career Step</title>
+  <link rel="stylesheet" href="static/style.css"/>
+  <link rel="stylesheet" href="static/spa.css"/>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body>
+<script src="static/bg.js"></script>
+
+<!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+     TOP HEADER
+â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+<header class="header">
+  <div class="header-inner">
+    <button class="sidebar-toggle" onclick="toggleSidebar()" aria-label="Toggle menu">â˜°</button>
+    <a href="#" class="logo" onclick="navigate('home')">
+      <span class="logo-icon">ðŸ›¡ï¸</span>
+      <div>
+        <span class="logo-text">ScamShield <span class="logo-ai">AI</span></span>
+        <p class="logo-tagline">Pehla Kadam, Surakshit Kadam</p>
+      </div>
+    </a>
+    <nav class="top-nav">
+      <a onclick="navigate('home')"      class="tnav" data-page="home">Analyze</a>
+      <a onclick="navigate('feed')"      class="tnav" data-page="feed">Live Feed</a>
+      <a onclick="navigate('graph')"     class="tnav" data-page="graph">Trust Graph</a>
+      <a onclick="navigate('about')"     class="tnav" data-page="about">About</a>
+      <a onclick="navigate('contact')"   class="tnav" data-page="contact">Contact</a>
+      <a onclick="navigate('api-docs')"  class="tnav" data-page="api-docs">API Docs</a>
+    </nav>
+    <div class="header-actions">
+      <button class="theme-toggle" onclick="toggleTheme()" title="Toggle theme">
+        <span id="theme-icon">â˜€ï¸</span>
+      </button>
+      <div id="user-area"></div>
+    </div>
+  </div>
+</header>
+
+<!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+     SPA LAYOUT: SIDEBAR + MAIN
+â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+<div class="spa-layout">
+
+  <!-- SIDEBAR -->
+  <aside class="spa-sidebar" id="spa-sidebar">
+    <div class="sidebar-section-label">Tools</div>
+    <a class="snav active" data-page="home"      onclick="navigate('home',this)">      ðŸ” <span>Analyzer</span></a>
+    <a class="snav"        data-page="feed"      onclick="navigate('feed',this)">      ðŸ”´ <span>Live Feed</span></a>
+    <a class="snav"        data-page="graph"     onclick="navigate('graph',this)">     ðŸ•¸ï¸ <span>Trust Graph</span></a>
+
+    <div class="sidebar-section-label">Account</div>
+    <a class="snav"        data-page="dashboard" onclick="navigate('dashboard',this)"> ðŸ“Š <span>Dashboard</span></a>
+    <a class="snav"        data-page="login"     onclick="navigate('login',this)"  id="snav-login"> ðŸ” <span>Sign In</span></a>
+
+    <div class="sidebar-section-label">Info</div>
+    <a class="snav"        data-page="about"     onclick="navigate('about',this)">     â„¹ï¸ <span>About & FAQ</span></a>
+    <a class="snav"        data-page="contact"   onclick="navigate('contact',this)">   ðŸ“¬ <span>Contact</span></a>
+    <a class="snav"        data-page="api-docs"  onclick="navigate('api-docs',this)">  ðŸ“– <span>API Docs</span></a>
+
+    <div class="sidebar-footer">
+      <a href="https://cybercrime.gov.in" target="_blank" class="sidebar-emergency">
+        ðŸš¨ Report Cybercrime<br/><small>Helpline: 1930</small>
+      </a>
+      <div class="sidebar-legal-links">
+        <a href="/privacy" target="_blank">Privacy</a>
+        <a href="/terms" target="_blank">Terms</a>
+      </div>
+    </div>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="spa-main" id="spa-main">
+
+    <!-- â”€â”€ PAGE: HOME / ANALYZER â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
+    <div id="page-home" class="spa-page active">
+      <!-- Hero -->
+      <div class="hero-compact">
+        <div class="hero-bg-grid"></div>
+        <div class="hero-compact-inner">
+          <div class="hero-badge">ðŸ‡®ðŸ‡³ Built for India's 50 Lakh+ Job Seekers</div>
+          <h1>Don't Let Scammers Steal <span class="gradient-text">Your First Opportunity</span></h1>
+          <p class="hero-sub">AI-powered detection of fake job offers, Telegram task scams, UPI fraud â€” before you become a victim.</p>
+          <div class="hero-stats-row">
+            <div class="hstat"><span class="hstat-n" id="stat-scanned">â€”</span><span class="hstat-l">Total Scans</span></div>
+            <div class="hstat"><span class="hstat-n" id="stat-detected">â€”</span><span class="hstat-l">Scams Caught</span></div>
+            <div class="hstat"><span class="hstat-n">â‚¹1,750 Cr</span><span class="hstat-l">Lost to Job Scams</span></div>
+            <div class="hstat"><span class="hstat-n">68%</span><span class="hstat-l">Victims are Students</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Analyzer card -->
+      <div class="page-body">
+        <div class="analyzer-card">
+          <div class="tabs">
+            <button class="tab active" data-tab="text"   onclick="switchTab('text',this)">ðŸ“ Paste Text</button>
+            <button class="tab"        data-tab="domain" onclick="switchTab('domain',this)">ðŸŒ Domain Check</button>
+            <button class="tab"        data-tab="image"  onclick="switchTab('image',this)">ðŸ“¸ Screenshot OCR</button>
+          </div>
+
+          <div id="tab-text" class="tab-content active">
+            <textarea id="input-text" rows="7" placeholder="Paste the suspicious job offer, WhatsApp message, or recruiter text here...&#10;&#10;Example: 'Earn â‚¹8,000/day from home! Simple Telegram tasks. Join now â€” limited seats! Pay â‚¹500 registration fee.'"></textarea>
+            <div class="sample-btns">
+              <span class="sample-label">Try a sample:</span>
+              <button class="sample-btn" onclick="loadSample('telegram')">Telegram Scam</button>
+              <button class="sample-btn" onclick="loadSample('fake_job')">Fake Job</button>
+              <button class="sample-btn" onclick="loadSample('phishing')">Phishing</button>
+              <button class="sample-btn" onclick="loadSample('brand_impersonation')">Brand Impersonation</button>
+              <button class="sample-btn" onclick="loadSample('legit')">âœ… Legit Offer</button>
+            </div>
+          </div>
+
+          <div id="tab-domain" class="tab-content">
+            <input id="input-domain" type="text" placeholder="Enter domain or URL (e.g., quickjobs-india.com)"/>
+            <p class="domain-hint">Checks domain age, SSL, URL reputation, and scam database match.</p>
+          </div>
+
+          <div id="tab-image" class="tab-content">
+            <div class="upload-zone" id="upload-zone" onclick="document.getElementById('img-input').click()" ondragover="event.preventDefault()" ondrop="handleDrop(event)">
+              <div class="upload-icon">ðŸ“¸</div>
+              <p class="upload-title">Upload WhatsApp / Telegram Screenshot</p>
+              <p class="upload-hint">Drag & drop or click â€” JPG, PNG. Text extracted via OCR.</p>
+              <input type="file" id="img-input" accept="image/*" style="display:none" onchange="handleImageSelect(event)"/>
+            </div>
+            <div id="img-preview-wrap" class="hidden">
+              <img id="img-preview" class="img-preview" alt="Preview"/>
+              <button class="clear-img-btn" onclick="clearImage()">âœ• Remove</button>
+            </div>
+          </div>
+
+          <button class="analyze-btn" onclick="runAnalysis()" id="analyze-btn">
+            <span id="btn-text">ðŸ” Analyze Now</span>
+            <span id="btn-loader" class="hidden"><span class="spinner"></span> Analyzing...</span>
+          </button>
+        </div>
+
+        <!-- Result card -->
+        <div id="result-card" class="result-card hidden">
+          <div id="verdict-banner" class="verdict-banner">
+            <div class="verdict-left">
+              <div class="verdict-icon" id="verdict-icon"></div>
+              <div>
+                <div class="verdict-label" id="verdict-label"></div>
+                <div class="verdict-score">Risk Score: <span id="verdict-score"></span>/100</div>
+                <div class="verdict-lang" id="verdict-lang"></div>
+              </div>
+            </div>
+            <div class="verdict-meter-wrap">
+              <div class="meter-label">Risk Level</div>
+              <div class="risk-meter"><div class="risk-fill" id="risk-fill"></div></div>
+              <div class="meter-ticks"><span>Safe</span><span>Suspicious</span><span>Scam</span></div>
+            </div>
+          </div>
+          <div class="advice-box" id="advice-box"></div>
+          <div class="breakdown-section">
+            <div class="breakdown-title">Risk Breakdown by Category</div>
+            <div class="breakdown-grid">
+              <div class="chart-wrap"><canvas id="radar-chart"></canvas></div>
+              <div class="breakdown-bars" id="breakdown-bars"></div>
+            </div>
+          </div>
+          <div class="factors-section">
+            <div class="factors-title">Why was this flagged?</div>
+            <div id="factors-list" class="factors-list"></div>
+          </div>
+          <div class="safety-score-section" id="safety-score-section" style="display:none">
+            <div class="safety-score-title">ðŸ“Š Your Personal Safety Score</div>
+            <div class="safety-score-body" id="safety-score-body"></div>
+          </div>
+          <div class="result-footer">
+            <a href="https://cybercrime.gov.in" target="_blank" class="report-btn">ðŸš¨ Report at cybercrime.gov.in</a>
+            <span class="helpline">Helpline: <strong>1930</strong></span>
+            <button class="share-btn" onclick="shareResult()">ðŸ“¤ Share Warning</button>
+          </div>
+        </div>
+
+        <!-- How it works -->
+        <div class="how-grid-compact">
+          <div class="how-item"><span>ðŸ§ </span><div><strong>NLP + Behavioral AI</strong><p>Urgency bias, salary baiting, Hinglish/Hindi/Telugu scam phrases</p></div></div>
+          <div class="how-item"><span>ðŸ“§</span><div><strong>Email Domain Intel</strong><p>MX records, free provider abuse, brand impersonation detection</p></div></div>
+          <div class="how-item"><span>ðŸ”—</span><div><strong>URL Reputation</strong><p>Heuristic + Google Safe Browsing + VirusTotal integration</p></div></div>
+          <div class="how-item"><span>ðŸ•¸ï¸</span><div><strong>Trust Graph</strong><p>Phone, UPI, domain network mapped against fraud reports</p></div></div>
+          <div class="how-item"><span>ðŸ”</span><div><strong>Pattern Learning</strong><p>Repeated entities flagged harder on every scan</p></div></div>
+          <div class="how-item"><span>ðŸ“Š</span><div><strong>Safety Scorecard</strong><p>Visual breakdown that teaches you to spot scams yourself</p></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- â”€â”€ PAGE: LIVE FEED â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
+    <div id="page-feed" class="spa-page">
+      <div class="page-body">
+        <div class="page-header-row">
+          <div><h2 class="page-title">ðŸ”´ Live Scam Reports</h2><p class="page-sub">Community-reported scams from across India â€” updated in real time.</p></div>
+          <button class="refresh-btn" onclick="loadReports()">â†» Refresh</button>
+        </div>
+        <div class="filter-row">
+          <select id="filter-type" onchange="loadReports()" class="filter-select">
+            <option value="">All Types</option>
+            <option>Telegram Task Scam</option>
+            <option>Fake Job Offer</option>
+            <option>Phishing Attempt</option>
+            <option>Upfront Fee Scam</option>
+            <option>Salary Bait Scam</option>
+            <option>Brand Impersonation</option>
+            <option>UPI Fraud</option>
+          </select>
+          <select id="filter-state" onchange="loadReports()" class="filter-select">
+            <option value="">All States</option>
+            <option>Maharashtra</option><option>Delhi</option><option>Karnataka</option>
+            <option>Tamil Nadu</option><option>Telangana</option><option>Gujarat</option>
+            <option>West Bengal</option><option>Uttar Pradesh</option>
+          </select>
+        </div>
+        <div id="reports-list" class="reports-list"><div class="feed-loading">Loading reports...</div></div>
+      </div>
+    </div>
+
+    <!-- â”€â”€ PAGE: TRUST GRAPH â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
+    <div id="page-graph" class="spa-page">
+      <div class="page-body">
+        <div class="page-header-row">
+          <div><h2 class="page-title">ðŸ•¸ï¸ Trust Graph â€” Scam Network Map</h2><p class="page-sub">Visual map of phone numbers, UPI IDs, and domains linked to reported fraud.</p></div>
+        </div>
+        <div class="graph-card">
+          <canvas id="graph-canvas" width="900" height="460"></canvas>
+          <div class="graph-legend">
+            <span><span class="legend-dot" style="background:#ef4444"></span>Phone Numbers</span>
+            <span><span class="legend-dot" style="background:#f59e0b"></span>UPI IDs</span>
+            <span><span class="legend-dot" style="background:#3b82f6"></span>Domains</span>
+            <span><span class="legend-dot" style="background:#10b981"></span>Emails</span>
+            <span><span class="legend-dot" style="background:#8b5cf6"></span>Hub</span>
+          </div>
+        </div>
+        <div class="stats-grid" style="margin-top:24px">
+          <div class="stat-card"><div class="stat-big" id="gs-total">â€”</div><div class="stat-desc">Total Scans</div></div>
+          <div class="stat-card"><div class="stat-big" id="gs-scams">â€”</div><div class="stat-desc">Scams Detected</div></div>
+          <div class="stat-card"><div class="stat-big" id="gs-phones">â€”</div><div class="stat-desc">Flagged Phones</div></div>
+          <div class="stat-card"><div class="stat-big" id="gs-upi">â€”</div><div class="stat-desc">Flagged UPI IDs</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- â”€â”€ PAGE: DASHBOARD â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
+    <div id="page-dashboard" class="spa-page">
+      <div class="page-body">
+        <h2 class="page-title">ðŸ“Š Dashboard â€” Welcome back, <span id="dash-user-name">â€”</span> ðŸ‘‹</h2>
+        <div class="dash-metrics">
+          <div class="metric-card"><div class="metric-label">Safety Score</div><div class="metric-value safety-big" id="dash-safety">â€”</div><div class="metric-sub">out of 100</div></div>
+          <div class="metric-card"><div class="metric-label">Total Scans</div><div class="metric-value" id="dash-total">â€”</div><div class="metric-sub">all time</div></div>
+          <div class="metric-card"><div class="metric-label">Scams Caught</div><div class="metric-value" style="color:var(--red)" id="dash-scams">â€”</div><div class="metric-sub">flagged as scam</div></div>
+          <div class="metric-card"><div class="metric-label">Safe Verified</div><div class="metric-value" style="color:var(--green)" id="dash-safe">â€”</div><div class="metric-sub">cleared offers</div></div>
+        </div>
+
+        <div class="two-col">
+          <div class="section-card">
+            <h3>ðŸ“ˆ Safety Score Trend</h3>
+            <div style="height:130px"><canvas id="trend-chart"></canvas></div>
+          </div>
+          <div class="section-card quick-analyze">
+            <h3>âš¡ Quick Analyze</h3>
+            <textarea id="quick-input" rows="3" placeholder="Paste a suspicious message..."></textarea>
+            <button class="btn-primary" onclick="quickAnalyze()">ðŸ” Analyze</button>
+            <div id="quick-result" style="margin-top:10px;font-size:.85rem;color:var(--text2)"></div>
+          </div>
+        </div>
+
+        <div class="section-card" style="padding:0;overflow:hidden">
+          <div style="padding:18px 20px 12px;font-weight:700;font-size:.95rem">ðŸ” Recent Scans</div>
+          <table class="data-table">
+            <thead><tr><th>Date</th><th>Verdict</th><th>Risk</th><th>Snippet</th></tr></thead>
+            <tbody id="scans-tbody"><tr><td colspan="4" style="text-align:center;color:var(--muted);padding:24px">Loading...</td></tr></tbody>
+          </table>
+        </div>
+
+        <div class="two-col">
+          <div class="section-card">
+            <h3>ðŸ”” Alert Settings</h3>
+            <div class="toggle-row"><div><div class="tgl-label">Email Alerts</div><div class="tgl-sub">Notify when scam detected</div></div><label class="toggle"><input type="checkbox" id="toggle-email" checked><span class="toggle-slider"></span></label></div>
+            <div class="toggle-row"><div><div class="tgl-label">SMS Alerts</div><div class="tgl-sub">SMS for high-risk detections</div></div><label class="toggle"><input type="checkbox" id="toggle-sms"><span class="toggle-slider"></span></label></div>
+            <div class="toggle-row"><div><div class="tgl-label">Weekly Digest</div><div class="tgl-sub">Summary every Monday</div></div><label class="toggle"><input type="checkbox" id="toggle-digest" checked><span class="toggle-slider"></span></label></div>
+            <button class="btn-primary" style="margin-top:14px" onclick="saveAlerts()">Save Preferences</button>
+          </div>
+          <div class="section-card">
+            <h3>ðŸ‘¤ Account Settings</h3>
+            <div class="form-group"><label>Full Name</label><input type="text" id="acc-name" placeholder="Your name"/></div>
+            <div class="form-group"><label>Email</label><input type="email" id="acc-email" placeholder="you@example.com"/></div>
+            <div class="form-group"><label>Phone</label><input type="tel" id="acc-phone" placeholder="+91 XXXXX XXXXX"/></div>
+            <button class="btn-primary" onclick="saveAccount()">Save Changes</button>
+          </div>
+        </div>
+
+        <div class="section-card danger-zone">
+          <h3 style="color:var(--red)">âš ï¸ Danger Zone</h3>
+          <p style="font-size:.85rem;color:var(--text2);margin-bottom:14px">Permanently delete your account and all data. Cannot be undone.</p>
+          <button class="btn-danger" onclick="confirmDelete()">Delete My Account</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- â”€â”€ PAGE: LOGIN â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
+    <div id="page-login" class="spa-page">
+      <div class="page-body auth-page-body">
+        <div class="auth-container">
+          <div class="auth-logo">
+            <span style="font-size:2rem">ðŸ›¡ï¸</span>
+            <div><div class="logo-text">ScamShield <span class="logo-ai">AI</span></div><div class="logo-tagline">Pehla Kadam, Surakshit Kadam</div></div>
+          </div>
+          <h2 class="auth-title">Welcome Back</h2>
+          <p class="auth-sub">Sign in to access your safety dashboard and scan history.</p>
+
+          <button class="google-btn" onclick="loginWithGoogle()">
+            <svg width="18" height="18" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.18 1.48-4.97 2.31-8.16 2.31-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>
+            Continue with Google
+          </button>
+
+          <div class="auth-divider"><span>or sign in with mobile</span></div>
+
+          <div id="login-step-phone">
+            <label class="input-label">Mobile Number</label>
+            <div class="phone-input-wrap">
+              <span class="phone-prefix">ðŸ‡®ðŸ‡³ +91</span>
+              <input id="login-phone" type="tel" maxlength="10" placeholder="10-digit number" oninput="this.value=this.value.replace(/\D/g,'')" onkeydown="if(event.key==='Enter')sendOTP()"/>
+            </div>
+            <button class="otp-btn" onclick="sendOTP()" id="send-otp-btn">
+              <span id="send-btn-text">Send OTP</span><span id="send-btn-loader" class="hidden">Sending...</span>
+            </button>
+          </div>
+
+          <div id="login-step-otp" class="hidden">
+            <div class="otp-sent-msg" id="otp-sent-msg"></div>
+            <label class="input-label">Enter OTP</label>
+            <div class="otp-boxes" id="otp-boxes">
+              <input class="otp-box" type="tel" maxlength="1" oninput="otpInput(this,0)" onkeydown="otpKey(event,0)"/>
+              <input class="otp-box" type="tel" maxlength="1" oninput="otpInput(this,1)" onkeydown="otpKey(event,1)"/>
+              <input class="otp-box" type="tel" maxlength="1" oninput="otpInput(this,2)" onkeydown="otpKey(event,2)"/>
+              <input class="otp-box" type="tel" maxlength="1" oninput="otpInput(this,3)" onkeydown="otpKey(event,3)"/>
+              <input class="otp-box" type="tel" maxlength="1" oninput="otpInput(this,4)" onkeydown="otpKey(event,4)"/>
+              <input class="otp-box" type="tel" maxlength="1" oninput="otpInput(this,5)" onkeydown="otpKey(event,5)"/>
+            </div>
+            <button class="otp-btn" onclick="verifyOTP()" id="verify-btn">
+              <span id="verify-btn-text">Verify & Sign In</span><span id="verify-btn-loader" class="hidden">Verifying...</span>
+            </button>
+            <div class="resend-row">
+              <span id="resend-timer" class="resend-timer"></span>
+              <button id="resend-btn" class="resend-link hidden" onclick="resendOTP()">Resend OTP</button>
+            </div>
+            <button class="back-link" onclick="goBackPhone()">â† Change number</button>
+          </div>
+
+          <div id="login-error"   class="auth-msg error   hidden"></div>
+          <div id="login-success" class="auth-msg success hidden"></div>
+          <p class="auth-footer">Free for all students and job seekers. <a href="https://cybercrime.gov.in" target="_blank">Terms</a></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- â”€â”€ PAGE: ABOUT + FAQ â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
+    <div id="page-about" class="spa-page">
+      <div class="page-body">
+        <div class="page-hero-mini">
+          <div class="hero-badge">ðŸ‡®ðŸ‡³ Made in India, for India</div>
+          <h2 class="page-title">About <span class="gradient-text">ScamShield AI</span></h2>
+          <p class="page-sub">Protecting India's 50 lakh+ job seekers from fraud using AI, community intelligence, and real-time threat detection.</p>
+        </div>
+
+        <div class="team-grid">
+          <div class="team-card"><div class="team-avatar">ðŸ‘¨â€ðŸ’¼</div><div class="team-name">Arjun Sharma</div><div class="team-role">Founder & CEO</div><div class="team-bio">Former cybersecurity analyst at CERT-In. Witnessed thousands of job scam victims and built the solution.</div></div>
+          <div class="team-card"><div class="team-avatar">ðŸ‘©â€ðŸ’»</div><div class="team-name">Priya Nair</div><div class="team-role">CTO</div><div class="team-bio">ML engineer with 8 years in NLP. Built fraud detection for two major Indian fintech companies.</div></div>
+          <div class="team-card"><div class="team-avatar">ðŸ§‘â€ðŸ”¬</div><div class="team-name">Rahul Verma</div><div class="team-role">Head of Research</div><div class="team-bio">PhD in computational linguistics. Specializes in Hinglish NLP and behavioral pattern analysis.</div></div>
+        </div>
+
+        <div class="timeline-section">
+          <h3 class="subsection-title">Our Journey</h3>
+          <div class="timeline">
+            <div class="tl-item"><div class="tl-dot"></div><div class="tl-date">2024 Q1</div><div class="tl-title">The Idea</div><div class="tl-desc">After a close friend lost â‚¹40,000 to a fake job scam, we started researching the scale of the problem.</div></div>
+            <div class="tl-item"><div class="tl-dot"></div><div class="tl-date">2024 Q2</div><div class="tl-title">MVP Built</div><div class="tl-desc">First version with NLP detection and URL checks. Tested with 500 beta users across 12 colleges.</div></div>
+            <div class="tl-item"><div class="tl-dot"></div><div class="tl-date">2024 Q3</div><div class="tl-title">Public Launch</div><div class="tl-desc">Launched with OCR, Trust Graph, and community reporting. 10,000 scans in the first week.</div></div>
+            <div class="tl-item"><div class="tl-dot"></div><div class="tl-date">2024 Q4</div><div class="tl-title">Growing Impact</div><div class="tl-desc">Partnered with 3 state governments. Integrated with CERT-In threat feeds. 1 lakh+ scans.</div></div>
+          </div>
+        </div>
+
+        <div class="tech-section">
+          <h3 class="subsection-title">Technology Stack</h3>
+          <div class="tech-grid">
+            <div class="tech-card"><div class="tech-icon">âš¡</div><div class="tech-name">FastAPI</div><div class="tech-desc">High-performance Python backend</div></div>
+            <div class="tech-card"><div class="tech-icon">ðŸ—„ï¸</div><div class="tech-name">SQLite / PostgreSQL</div><div class="tech-desc">Reliable data persistence</div></div>
+            <div class="tech-card"><div class="tech-icon">ðŸ§ </div><div class="tech-name">NLP Engine</div><div class="tech-desc">Hinglish + multilingual detection</div></div>
+            <div class="tech-card"><div class="tech-icon">ðŸ“¸</div><div class="tech-name">OCR</div><div class="tech-desc">Screenshot text extraction</div></div>
+            <div class="tech-card"><div class="tech-icon">ðŸ•¸ï¸</div><div class="tech-name">Trust Graph</div><div class="tech-desc">Fraud network mapping</div></div>
+            <div class="tech-card"><div class="tech-icon">ðŸ”—</div><div class="tech-name">URL Intel</div><div class="tech-desc">Real-time link reputation</div></div>
+          </div>
+        </div>
+
+        <div class="faq-section" id="faq">
+          <h3 class="subsection-title">Frequently Asked Questions</h3>
+          <div class="faq-list" id="faq-list">
+            <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">How does ScamShield detect scams? <span class="faq-arrow">â–¼</span></div><div class="faq-a">We combine NLP analysis, URL reputation checks, email domain intelligence, OCR for screenshots, and a community-powered Trust Graph to give you a comprehensive risk score.</div></div>
+            <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Is my data stored or shared? <span class="faq-arrow">â–¼</span></div><div class="faq-a">Scanned text is anonymized and used only to improve detection. We never sell personal data. You can delete your account and all data at any time from the Dashboard.</div></div>
+            <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Is ScamShield free to use? <span class="faq-arrow">â–¼</span></div><div class="faq-a">Yes, the core analyzer is completely free for students and job seekers. We plan a premium tier for businesses and HR teams.</div></div>
+            <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">What languages does it support? <span class="faq-arrow">â–¼</span></div><div class="faq-a">English, Hindi, Hinglish, Tamil, Telugu, and Bengali. We're actively expanding to more Indian languages.</div></div>
+            <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">How accurate is the detection? <span class="faq-arrow">â–¼</span></div><div class="faq-a">Our model achieves ~94% accuracy on our test dataset. Always use your own judgment â€” no AI is 100% perfect.</div></div>
+            <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Does it work on WhatsApp screenshots? <span class="faq-arrow">â–¼</span></div><div class="faq-a">Yes. Upload a screenshot using the OCR tab and our engine extracts the text and analyzes it automatically.</div></div>
+            <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">What is the Trust Graph? <span class="faq-arrow">â–¼</span></div><div class="faq-a">A visual network map linking phone numbers, UPI IDs, and domains that have appeared in reported scams â€” helping you see if a contact is connected to known fraud.</div></div>
+            <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Who should I call if I've already been scammed? <span class="faq-arrow">â–¼</span></div><div class="faq-a">Call the National Cyber Crime Helpline at 1930 immediately. Also file a report at cybercrime.gov.in. Act fast â€” early reporting improves recovery chances.</div></div>
+          </div>
+        </div>
+
+        <div class="newsletter-section">
+          <h3 class="subsection-title">Stay Updated</h3>
+          <p style="color:var(--text2);font-size:.9rem;margin-bottom:16px">Get weekly scam alerts and safety tips in your inbox.</p>
+          <form class="newsletter-form" onsubmit="subscribeNewsletter(event)">
+            <input type="email" id="nl-email" placeholder="your@email.com" required/>
+            <button type="submit">Subscribe</button>
+          </form>
+          <p id="nl-msg" style="margin-top:10px;font-size:.85rem;color:var(--green);display:none">âœ… Subscribed! Check your inbox.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- â”€â”€ PAGE: CONTACT â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
+    <div id="page-contact" class="spa-page">
+      <div class="page-body">
+        <div class="page-hero-mini">
+          <h2 class="page-title">Get in <span class="gradient-text">Touch</span></h2>
+          <p class="page-sub">Have a question, found a bug, or want to partner with us?</p>
+        </div>
+        <div class="contact-layout">
+          <div class="section-card">
+            <h3 style="margin-bottom:20px">ðŸ“¬ Send us a Message</h3>
+            <form id="contact-form" onsubmit="submitContact(event)">
+              <div class="form-row-2">
+                <div class="form-group"><label>Full Name</label><input type="text" id="c-name" placeholder="Your name" required/></div>
+                <div class="form-group"><label>Email</label><input type="email" id="c-email" placeholder="you@example.com" required/></div>
+              </div>
+              <div class="form-group">
+                <label>Subject</label>
+                <select id="c-subject" required class="form-select">
+                  <option value="" disabled selected>Select a topic...</option>
+                  <option value="general">General Inquiry</option>
+                  <option value="bug">Report a Bug</option>
+                  <option value="partnership">Partnership</option>
+                  <option value="media">Media / Press</option>
+                </select>
+              </div>
+              <div class="form-group"><label>Message</label><textarea id="c-message" rows="5" placeholder="Describe your query..." required></textarea></div>
+              <button type="submit" class="analyze-btn" id="contact-submit-btn" style="margin-top:0">
+                <span id="contact-btn-text">ðŸ“¤ Send Message</span>
+                <span id="contact-btn-loader" class="hidden"><span class="spinner"></span> Sending...</span>
+              </button>
+            </form>
+            <div id="contact-success" class="advice-box safe hidden" style="margin-top:14px">âœ… Message sent! We'll respond within 24 hours.</div>
+          </div>
+
+          <div class="contact-sidebar">
+            <div class="section-card">
+              <h3 style="margin-bottom:14px">Contact Info</h3>
+              <div class="info-item"><span>ðŸ“§</span><div><div class="info-label">Email</div><a href="mailto:hello@scamshield.ai" class="info-value">hello@scamshield.ai</a></div></div>
+              <div class="info-item"><span>ðŸ“ž</span><div><div class="info-label">Cyber Helpline</div><div class="info-value"><strong>1930</strong> (24Ã—7 India)</div></div></div>
+              <div class="info-item"><span>ðŸ“</span><div><div class="info-label">Location</div><div class="info-value">Bengaluru, Karnataka, India</div></div></div>
+            </div>
+            <div class="section-card">
+              <h3 style="margin-bottom:14px">Follow Us</h3>
+              <div class="social-links">
+                <a href="https://twitter.com" target="_blank" class="social-btn">ðŸ¦ Twitter</a>
+                <a href="https://linkedin.com" target="_blank" class="social-btn">ðŸ’¼ LinkedIn</a>
+                <a href="https://github.com" target="_blank" class="social-btn">ðŸ™ GitHub</a>
+              </div>
+            </div>
+            <div class="section-card">
+              <h3 style="margin-bottom:12px">Quick Help</h3>
+              <div class="faq-links">
+                <a onclick="navigate('about')" style="cursor:pointer;color:var(--accent)">â“ How does ScamShield work?</a>
+                <a onclick="navigate('about')" style="cursor:pointer;color:var(--accent)">ðŸ”’ Is my data safe?</a>
+                <a href="https://cybercrime.gov.in" target="_blank" style="color:var(--accent)">ðŸš¨ Report a cybercrime</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- â”€â”€ PAGE: API DOCS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
+    <div id="page-api-docs" class="spa-page">
+      <div class="page-body">
+        <div class="page-hero-mini">
+          <h2 class="page-title">ðŸ“– API <span class="gradient-text">Documentation</span></h2>
+          <p class="page-sub">Integrate ScamShield AI into your app. All endpoints are REST + JSON.</p>
+        </div>
+
+        <div class="api-base-url">
+          <span class="api-label">Base URL</span>
+          <code class="api-url">http://localhost:8000</code>
+          <button class="copy-btn" onclick="copyText('http://localhost:8000')">Copy</button>
+        </div>
+
+        <div class="api-section">
+          <div class="api-section-title">ðŸ” Analysis</div>
+
+          <div class="api-endpoint">
+            <div class="api-method-row"><span class="method post">POST</span><code>/analyze</code><span class="api-desc">Analyze text for scam signals</span></div>
+            <div class="api-body">
+              <div class="api-sub">Request Body</div>
+              <pre class="code-block">{
+  "text": "Earn â‚¹8,000/day from home! Pay â‚¹500 fee.",
+  "domain": "quickjobs-india.com",  // optional
+  "image_base64": "..."             // optional, for OCR
+}</pre>
+              <div class="api-sub">Response</div>
+              <pre class="code-block">{
+  "overall_risk": 88,
+  "verdict": "SCAM",
+  "advice": "Do NOT proceed. Block the sender...",
+  "language": "english",
+  "category_scores": { "content": 85, "email": 0, "url": 60, "salary": 82, "network": 90, "behavior": 70 },
+  "factors": [
+    { "label": "Upfront Fee Requested", "score": 95, "severity": "high", "explanation": "...", "icon": "ðŸš«", "category": "content" }
+  ]
+}</pre>
+              <button class="try-btn" onclick="tryEndpoint('analyze')">â–¶ Try it</button>
+            </div>
+          </div>
+
+          <div class="api-endpoint">
+            <div class="api-method-row"><span class="method post">POST</span><code>/analyze/image</code><span class="api-desc">Upload screenshot for OCR + analysis</span></div>
+            <div class="api-body">
+              <div class="api-sub">Request</div>
+              <pre class="code-block">multipart/form-data â€” field: "file" (image/jpeg or image/png)</pre>
+            </div>
+          </div>
+        </div>
+
+        <div class="api-section">
+          <div class="api-section-title">ðŸ“‹ Reports</div>
+          <div class="api-endpoint">
+            <div class="api-method-row"><span class="method get">GET</span><code>/reports</code><span class="api-desc">Get community scam reports</span></div>
+            <div class="api-body">
+              <div class="api-sub">Query Params</div>
+              <pre class="code-block">?limit=20&scam_type=Telegram+Task+Scam&state=Maharashtra</pre>
+              <button class="try-btn" onclick="tryEndpoint('reports')">â–¶ Try it</button>
+            </div>
+          </div>
+          <div class="api-endpoint">
+            <div class="api-method-row"><span class="method post">POST</span><code>/reports/{id}/upvote</code><span class="api-desc">Upvote a community report</span></div>
+          </div>
+        </div>
+
+        <div class="api-section">
+          <div class="api-section-title">ðŸ“Š Stats & Graph</div>
+          <div class="api-endpoint">
+            <div class="api-method-row"><span class="method get">GET</span><code>/stats</code><span class="api-desc">Platform-wide statistics</span></div>
+            <div class="api-body"><button class="try-btn" onclick="tryEndpoint('stats')">â–¶ Try it</button></div>
+          </div>
+          <div class="api-endpoint">
+            <div class="api-method-row"><span class="method get">GET</span><code>/stats/trends</code><span class="api-desc">Scan trends over time</span></div>
+            <div class="api-body"><pre class="code-block">?days=30</pre></div>
+          </div>
+          <div class="api-endpoint">
+            <div class="api-method-row"><span class="method get">GET</span><code>/graph/data</code><span class="api-desc">Trust graph nodes and links</span></div>
+            <div class="api-body"><button class="try-btn" onclick="tryEndpoint('graph/data')">â–¶ Try it</button></div>
+          </div>
+          <div class="api-endpoint">
+            <div class="api-method-row"><span class="method get">GET</span><code>/lookup</code><span class="api-desc">Look up a specific entity</span></div>
+            <div class="api-body"><pre class="code-block">?type=phone&value=9876543210
+?type=upi&value=taskpay99@okaxis
+?type=domain&value=earnmoney-daily.in</pre></div>
+          </div>
+        </div>
+
+        <div class="api-section">
+          <div class="api-section-title">ðŸ” Auth</div>
+          <div class="api-endpoint">
+            <div class="api-method-row"><span class="method get">GET</span><code>/auth/google</code><span class="api-desc">Redirect to Google OAuth</span></div>
+          </div>
+          <div class="api-endpoint">
+            <div class="api-method-row"><span class="method post">POST</span><code>/auth/otp/send</code><span class="api-desc">Send OTP to mobile number</span></div>
+            <div class="api-body"><pre class="code-block">{ "phone": "9876543210" }</pre></div>
+          </div>
+          <div class="api-endpoint">
+            <div class="api-method-row"><span class="method post">POST</span><code>/auth/otp/verify</code><span class="api-desc">Verify OTP and get JWT token</span></div>
+            <div class="api-body"><pre class="code-block">{ "phone": "9876543210", "otp": "123456" }</pre></div>
+          </div>
+          <div class="api-endpoint">
+            <div class="api-method-row"><span class="method get">GET</span><code>/auth/me</code><span class="api-desc">Get current user (requires Bearer token)</span></div>
+          </div>
+        </div>
+
+        <div class="api-section">
+          <div class="api-section-title">ðŸ“¬ Other</div>
+          <div class="api-endpoint">
+            <div class="api-method-row"><span class="method post">POST</span><code>/newsletter/subscribe</code><span class="api-desc">Subscribe to weekly digest</span></div>
+            <div class="api-body"><pre class="code-block">{ "email": "you@example.com" }</pre></div>
+          </div>
+          <div class="api-endpoint">
+            <div class="api-method-row"><span class="method post">POST</span><code>/contact</code><span class="api-desc">Send a contact message</span></div>
+            <div class="api-body"><pre class="code-block">{ "name": "...", "email": "...", "subject": "...", "message": "..." }</pre></div>
+          </div>
+          <div class="api-endpoint">
+            <div class="api-method-row"><span class="method get">GET</span><code>/health</code><span class="api-desc">Service health check</span></div>
+            <div class="api-body"><button class="try-btn" onclick="tryEndpoint('health')">â–¶ Try it</button></div>
+          </div>
+        </div>
+
+        <div class="api-try-result hidden" id="api-try-result">
+          <div class="api-sub">Response</div>
+          <pre class="code-block" id="api-try-output"></pre>
+        </div>
+
+        <div class="api-note">
+          Full interactive docs (Swagger UI) available at <a href="/docs" target="_blank">/docs</a> Â· ReDoc at <a href="/redoc" target="_blank">/redoc</a>
+        </div>
+      </div>
+    </div>
+
+  </main><!-- end spa-main -->
+</div><!-- end spa-layout -->
+
+<!-- Toast -->
+<div id="toast" class="toast"></div>
+
+<script src="static/app.js"></script>
+</body>
+</html>
+
+

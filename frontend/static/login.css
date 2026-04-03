@@ -1,0 +1,228 @@
+/* ===== AUTH PAGE ===== */
+.auth-body {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg);
+  transition: background .3s;
+  background-image:
+    radial-gradient(ellipse at 20% 50%, rgba(59,130,246,0.08) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 20%, rgba(139,92,246,0.08) 0%, transparent 60%);
+  padding: 24px;
+}
+
+.auth-container {
+  width: 100%;
+  max-width: 420px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 40px 36px;
+  box-shadow: 0 24px 64px rgba(0,0,0,0.4);
+}
+
+.auth-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 28px;
+  justify-content: center;
+}
+
+.auth-title {
+  font-size: 1.6rem;
+  font-weight: 800;
+  text-align: center;
+  margin-bottom: 8px;
+  color: #fff;
+}
+
+.auth-sub {
+  text-align: center;
+  color: var(--muted);
+  font-size: 0.88rem;
+  margin-bottom: 28px;
+}
+
+/* Google button */
+.google-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  background: #fff;
+  color: #1f2937;
+  border: none;
+  border-radius: 10px;
+  padding: 13px 20px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background .2s, transform .1s;
+}
+.google-btn:hover { background: #f3f4f6; transform: translateY(-1px); }
+.google-btn:active { transform: translateY(0); }
+
+/* Divider */
+.auth-divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 22px 0;
+  color: var(--muted);
+  font-size: 0.82rem;
+}
+.auth-divider::before,
+.auth-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+/* Phone input */
+.input-label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--muted);
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+}
+
+.phone-input-wrap {
+  display: flex;
+  align-items: center;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+  transition: border-color .2s;
+  margin-bottom: 14px;
+}
+.phone-input-wrap:focus-within { border-color: var(--accent); }
+
+.phone-prefix {
+  padding: 0 14px;
+  font-size: 0.9rem;
+  color: var(--muted);
+  border-right: 1px solid var(--border);
+  white-space: nowrap;
+  line-height: 48px;
+}
+
+.phone-input-wrap input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: var(--text);
+  padding: 13px 14px;
+  font-size: 1rem;
+  letter-spacing: .08em;
+}
+.phone-input-wrap input:focus { outline: none; }
+
+/* OTP button */
+.otp-btn {
+  width: 100%;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  border: none;
+  color: #fff;
+  padding: 14px;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: opacity .2s, transform .1s;
+}
+.otp-btn:hover { opacity: 0.9; transform: translateY(-1px); }
+.otp-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+/* OTP boxes */
+.otp-sent-msg {
+  background: rgba(16,185,129,0.1);
+  border: 1px solid rgba(16,185,129,0.25);
+  color: #6ee7b7;
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 0.85rem;
+  margin-bottom: 18px;
+  text-align: center;
+}
+
+.otp-boxes {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 18px;
+}
+
+.otp-box {
+  width: 48px;
+  height: 56px;
+  background: var(--bg2);
+  border: 2px solid var(--border);
+  border-radius: 10px;
+  color: var(--text);
+  font-size: 1.4rem;
+  font-weight: 700;
+  text-align: center;
+  transition: border-color .2s;
+  caret-color: transparent;
+}
+.otp-box:focus { outline: none; border-color: var(--accent); background: rgba(59,130,246,0.06); }
+.otp-box.filled { border-color: var(--accent); }
+
+/* Resend */
+.resend-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 14px;
+  font-size: 0.85rem;
+}
+.resend-timer { color: var(--muted); }
+.resend-link {
+  background: transparent;
+  border: none;
+  color: var(--accent);
+  cursor: pointer;
+  font-size: 0.85rem;
+  text-decoration: underline;
+}
+
+.back-link {
+  display: block;
+  background: transparent;
+  border: none;
+  color: var(--muted);
+  cursor: pointer;
+  font-size: 0.82rem;
+  margin-top: 10px;
+  text-align: center;
+  width: 100%;
+}
+.back-link:hover { color: var(--text); }
+
+/* Messages */
+.auth-msg {
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 0.88rem;
+  margin-top: 16px;
+  text-align: center;
+}
+.auth-msg.error   { background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.3); color: #fca5a5; }
+.auth-msg.success { background: rgba(16,185,129,0.1); border: 1px solid rgba(16,185,129,0.3); color: #6ee7b7; }
+
+.auth-footer {
+  text-align: center;
+  font-size: 0.78rem;
+  color: var(--muted);
+  margin-top: 24px;
+  line-height: 1.5;
+}
